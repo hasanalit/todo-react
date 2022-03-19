@@ -10,6 +10,7 @@ function App() {
 
     let newTodo = {
       id: new Date().getTime(),
+      isCompleted: false,
       content: e.target.value,
     }
 
@@ -29,6 +30,15 @@ function App() {
     window.localStorage.setItem("todos", JSON.stringify(filteredTodo))
   }
 
+  const selectTodo = (id) => {
+    let fineded = todo.find(t => t.id === id)
+    fineded.isCompleted = !fineded.isCompleted
+
+    setTodo([...todo])
+
+    window.localStorage.setItem("todos", JSON.stringify([...todo]))
+  }
+
 
   return (
     <>
@@ -40,9 +50,10 @@ function App() {
       todo?.map(t => {
         return(
           <li key={t?.id}>
+            <input defaultChecked={t.isCompleted} onChange={() => selectTodo(t.id)} type="checkbox"/>
             {t?.content}
             <button onClick={() => deleteTodo(t?.id)}>x</button>
-            </li>
+          </li>
         )
       })
     }
