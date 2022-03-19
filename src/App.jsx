@@ -51,7 +51,7 @@ function App() {
         return(
           <li key={t?.id}>
             <input defaultChecked={t.isCompleted} onChange={() => selectTodo(t.id)} type="checkbox"/>
-            {t?.content}
+            <span style={{textDecoration: t.isCompleted && "line-through"}}>{t?.content}</span>
             <button onClick={() => deleteTodo(t?.id)}>x</button>
           </li>
         )
